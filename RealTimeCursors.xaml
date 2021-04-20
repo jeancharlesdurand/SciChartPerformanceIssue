@@ -1,0 +1,89 @@
+<UserControl x:Class="SciChart.Examples.Examples.CreateRealtimeChart.RealTimeCursors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ext="http://schemas.abtsoftware.co.uk/scichart/exampleExternals"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+             Loaded="OnExampleLoaded"
+             Unloaded="OnExampleUnloaded"
+             d:DesignHeight="400"
+             d:DesignWidth="600"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <!--  Converter used by feedback panel below SciChartSurface  -->
+        <s:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+
+        <!--  Common TextBlock style, uses ColorToBrushConverter to convert RenderableSeries.Stroke to a brush for textblocks  -->
+        <Style x:Key="tbStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="2,4" />
+            <Setter Property="Foreground" Value="{Binding Stroke, Converter={StaticResource ColorToBrushConverter}}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Define a SciChartSurface with RolloverModifier  -->
+        <s:SciChartSurface x:Name="sciChartSurface"
+                           Grid.Column="1"
+                           RenderPriority="Low"
+                           MaxFrameRate="25"
+                           Loaded="SciChartSurface_OnLoaded">
+
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="renderableSeries0"
+                                            Stroke="DarkOrange"
+                                            StrokeThickness="2">
+                </s:FastLineRenderableSeries>
+
+                <s:FastLineRenderableSeries x:Name="renderableSeries1"
+                                            Stroke="SteelBlue"
+                                            StrokeThickness="2">
+                </s:FastLineRenderableSeries>
+
+                <s:FastLineRenderableSeries x:Name="renderableSeries2"
+                                            Stroke="DarkOliveGreen"
+                                            StrokeThickness="2">
+                </s:FastLineRenderableSeries>
+                <s:FastLineRenderableSeries x:Name="renderableSeries3"
+                                            Stroke="Purple"
+                                            StrokeThickness="2">
+                </s:FastLineRenderableSeries>
+
+            </s:SciChartSurface.RenderableSeries>
+
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis x:Name="_xAxis"
+                               AutoRange="Never"
+                               VisibleRange="0, 50"
+                               AxisTitle="Time (Seconds)"
+                               TextFormatting="0.0" />
+            </s:SciChartSurface.XAxis>
+
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AutoRange="Never"
+                               AxisTitle="Amplitude (Volts)"
+                               VisibleRange="-4, 4"
+                               DrawMajorBands="True"
+                               GrowBy="0.1, 0.1"
+                               TextFormatting="0.00" />
+            </s:SciChartSurface.YAxis>
+
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+
+    </Grid>
+
+</UserControl>
